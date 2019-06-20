@@ -5,9 +5,10 @@
 //$friendID = $_POST['friendID'];
 //$result = $_POST['result'];
 
-
-$userID = 3;
-$friendID = 1;
+$userID = $_POST['userID'];
+$friendID = $_POST['friendID'];
+//$userID = 3;
+//$friendID = 1;
 
 $con=@new mysqli("94.191.100.98", "test_account", "test_account123");
 //如果连接错误
