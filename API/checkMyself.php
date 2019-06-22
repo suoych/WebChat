@@ -1,8 +1,7 @@
 <?php
 
-
 $userID = $_POST['userID'];
-//$userID = 2;
+//$userID = 1;
 
 $con=@new mysqli("94.191.100.98", "test_account", "test_account123");
 //如果连接错误
@@ -14,17 +13,7 @@ if(mysqli_connect_errno()){
 mysqli_set_charset($con,'utf8');
 mysqli_select_db($con, "test");
 
-$sqlcheck = ("SELECT contact,type, text FROM (
-SELECT friendID as contact, sendTime, type, text 
-FROM message
-WHERE userID = '$userID'
-UNION
-SELECT userID as contact, sendTime, type, text
-FROM message
-WHERE friendID = '$userID'
-) as allContact
-GROUP BY contact
-ORDER BY MAX(sendTime) DESC;");
+$sqlcheck = ("select account, nickname, signature, gender, email, imageUrl from user where userID = '$userID';");
 $runcheck = mysqli_query($con, $sqlcheck);
 if (!$runcheck) {
     printf("Error: %s\n", mysqli_error($con));
