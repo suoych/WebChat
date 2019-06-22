@@ -1,8 +1,8 @@
 <?php
 
 
-$userID = $_POST['userID'];
-//$userID = 2;
+//$userID = $_POST['userID'];
+$userID = 2;
 
 $con=@new mysqli("94.191.100.98", "test_account", "test_account123");
 //如果连接错误
@@ -14,7 +14,7 @@ if(mysqli_connect_errno()){
 mysqli_set_charset($con,'utf8');
 mysqli_select_db($con, "test");
 
-$sqlcheck = ("SELECT contact,type, text FROM (
+$sqlcheck = ("SELECT contact, remark,type, text FROM (
 SELECT friendID as contact, sendTime, type, text 
 FROM message
 WHERE userID = '$userID'
@@ -22,7 +22,7 @@ UNION
 SELECT userID as contact, sendTime, type, text
 FROM message
 WHERE friendID = '$userID'
-) as allContact
+) as allContact, friend where friend.userID = '$userID' and friend.friendID = contact
 GROUP BY contact
 ORDER BY MAX(sendTime) DESC;");
 $runcheck = mysqli_query($con, $sqlcheck);
